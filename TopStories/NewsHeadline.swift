@@ -17,6 +17,24 @@ struct HeadlinesData: Codable {
 struct NewsHeadline: Codable {
     let title: String
     let abstract: String
+    let byline: String
+    let multimedia: [MultiMedia]
+}
+
+struct MultiMedia: Codable {
+    let url: String
+    let format: String // "thumbLarge" or "superJumbo"
+    let caption: String //array of multimedia items
+}
+
+extension NewsHeadline {
+    var thumbImage: MultiMedia? {
+        return multimedia.filter { $0.format == "thumbLarge" }.first
+    }
+    
+    var superJumbo: MultiMedia? {
+        return multimedia.filter{ $0.format == "superJumbo" }.first
+    }
 }
 
 extension HeadlinesData {
